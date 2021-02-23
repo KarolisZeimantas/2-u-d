@@ -1,7 +1,14 @@
+/////////////////////////////////////////////////////////////////////////////
+//                     Darba atliko: Karolis Zeimantas                     //
+//    stengiausia padaryti tvarkingai bet iskilo visai daug problemu       //
+//    pagrinde su mediana bet suzinojes apie malloc viskas buvo gerai      //
+//    tikiuosi daug klaidu nepalikau                                       //
+/////////////////////////////////////////////////////////////////////////////
 #include <iostream>
 #include <ctime>
 #include <cstdlib>
 #include <iomanip>
+#include <stdlib.h>
 using std::cout;
 using std::cin;
 using std::string;
@@ -10,18 +17,27 @@ using std::setw;
 using std::move;
 int studCount;
 string fill;
-int wantedMarks;
+int wantedMarks = 0;
 char type;
+
 struct Students
 {
     string names;
     string lastNames;
     float vid;
-    float med;
+    float med=0;
 };
-
+bool checkForDigit(string digit){
+    for (int i = 0; i < digit.length(); i++)
+    {
+        if(!isdigit(digit[i]))
+        return false;
+    }
+    return true;
+}
 void autoFill(Students stud[]){
     Students tempStruct;
+    float *grades;
     srand(time(NULL));
     float mark;
     float tempVid=0;
@@ -32,47 +48,91 @@ void autoFill(Students stud[]){
             
             mark = rand() %10+1;
             tempVid+= mark;
-
-            if(wantedMarks%2==0&&wantedMarks/2 ==j)
-                tempStruct.med = mark;
-            else if(wantedMarks/2==j||wantedMarks/2+1==j)
-                tempStruct.med += mark;
+        float * tempArray = grades;
+        grades = (float*) malloc (j+1);
+        std::copy(tempArray,tempArray+j,grades);
+        grades[j] =mark;
         }
-        tempStruct.med = tempStruct.med/2;
+    for (int a = 0; a < wantedMarks; a++)
+    {
+          if(a%2==0&&a==wantedMarks/2)
+                tempStruct.med = (grades[a]+grades[a+1])/2;
+
+        else if(a==wantedMarks/2&&a%2==1)
+                tempStruct.med = grades[a];  
+    }
         tempStruct.vid = tempVid/wantedMarks;
         tempStruct.names = "name"+std::to_string(i);
         tempStruct.lastNames = "lastName"+std::to_string(i);
         tempVid=0;
         stud[i] = tempStruct;
+        tempStruct.med = 0;
     }
     
 }
 void handFill(Students stud[]){
     Students tempStruct;
-    int temp;
+    float sum = 0,*grades;
+    int j =0;
+    string cont="y", temp;
     for (int i = 0; i < studCount; i++)
     {
     cout<<"iveskite studento varda: ";
     cin>> tempStruct.names;
     cout<<"iveskite studento pavarde: ";
     cin>>tempStruct.lastNames;
-    cout<<"iveskite sudento pazymius po viena: ";
-    for (int j = 0; j < wantedMarks; j++)
-    {
+    
+    while(cont=="Y"||cont=="y"){    
+        cout<<"iveskite studento pazymi: ";
         cin>>temp;
-        while(temp>10||temp<1){
-            cout<<"prasome ivesti normalu pazimi: ";
-            cin>>temp;
+        while(!checkForDigit(temp))
+        {
+            cout<<"prasome ivesti pazimi! ";
+            cin>>temp;  
         }
-        //tempStruct.marks.push_back(temp);
+        float * tempArray = grades;
+        grades = (float*) malloc (j+1);
+        std::copy(tempArray,tempArray+j,grades);
+        grades[j] = std::stoi(temp);
+        j++;
+        cout<<"ar norite ivesti daugiau pazimiu?[Y/N]: ";
+        cin>>cont;         
+        while(true){
+            if(cont=="Y" ||cont == "y"||cont == "N"||cont == "n")
+            break;
+            cout<<"prasome ivesti prasoma simboli! ";
+            cin>>cont;            
+        }
+        sum+=std::stoi(temp);
+        if(cont == "N"||cont == "n"){
+        cont = "Y";
+        break;
+        }          
+        
     }
-    tempStruct.vid = temp/studCount;
+    
+    for (int a = 0; a < j; a++)
+    {
+          if(a%2==0&&a==j/2)
+                tempStruct.med = (grades[a]+grades[a+1])/2;
+
+        else if(a==j/2&&a%2==1)
+                tempStruct.med = grades[a];  
+    }
+    free(grades);
+    float floatTemp = j;
+    tempStruct.vid = sum/floatTemp;
+    sum = 0;
+    j=0;
     stud[i] = tempStruct;
     }
     
 }
-void fillFunc(string fill,Students stud[]){
+void fillFunc(Students stud[]){
 if(fill=="Y"||fill=="y"){
+    
+    cout<<"ar norite skaicuoti pagal vidurki ar mediana?[V/M]: ";
+    cin>>type;
 
     while(true)
     {
@@ -85,30 +145,36 @@ if(fill=="Y"||fill=="y"){
 
     }
     else if (fill=="N"||fill=="n"){    
-
+    cout<<"ivestkite pazimiu kieki: ";
+    cin>>wantedMarks;
+    cout<<"ar norite skaicuoti pagal vidurki ar mediana?[V/M]: ";
+    cin>>type;
     while(true)
     {
     if(type == 'V'||type == 'v'||type == 'M'||type == 'm')
     break;
-    cout<<"prasome ivesti priimtinus duoneis![V/M]: ";
+    cout<<"prasome ivesti priimtinus duomenis![V/M]: ";
     cin>>type;
     }
-    autoFill(stud);
 
+    autoFill(stud);
     }
     else{
         cout<<"prasome ivesti priimtina simboli!";
-        string temp;
-        cin>>temp;
-        fillFunc(temp,stud);
-    }
+        cin>>fill;
+        fillFunc(stud);
+
+   }
     
 }
 
 void printTable(Students stud[]){
     cout<<"Vardas"<<setw(5)<<' ';
     cout<<"Pavarde"<<setw(5)<<' ';
+    if(type=='v'||type=='V')
     cout<<"Galutinis (Vid.)";
+    else
+    cout<<"Galutinis (Med.)";
     cout<<endl;
     cout<<"----------------------------------------------------"<<endl;
     for (int i = 0; i < studCount; i++)
@@ -118,25 +184,11 @@ void printTable(Students stud[]){
         else
         cout<<stud[i].names<<setw(5)<<' '<<stud[i].lastNames<<setw(5)<<' '<<std::setprecision(2)<<stud[i].med<<endl;
     }
-    
 }
-bool checkForDigit(string digit){
-    for (int i = 0; i < digit.length(); i++)
-    {
-        if(!isdigit(digit[i]))
-        return false;
-    }
-    return true;
-}
+
 int main(){
     string temp;
-    cout<<"iveskite norimu pazimiu skaiciu: ";
-    cin>>temp;
-    while(!checkForDigit(temp)){
-        cout<<"iveskite skaiciu: ";
-        cin>>temp;
-    }
-    wantedMarks =std::stof(temp);
+    
     cout<<"iveskite studentu kieki: ";
     cin>>temp;
     while(!checkForDigit(temp)){
@@ -144,12 +196,11 @@ int main(){
         cin>>temp;
     }
     studCount =std::stof(temp);
+
     cout<<"ar norite ivesti duomenis ranka?[Y/N]: ";
     cin>>fill;
-    cout<<"ar norite skaicuoti pagal vidurki ar mediana?[V/M]: ";
-    cin>>type;
     Students stud[studCount];
         
-    fillFunc(fill,stud);
+    fillFunc(stud);
     printTable(stud);
 }
