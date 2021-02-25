@@ -19,13 +19,13 @@ int studCount;
 string fill;
 int wantedMarks = 0;
 char type;
-
 struct Students
 {
     string names;
     string lastNames;
     float vid;
     float med=0;
+    float egzaminas;
 };
 bool checkForDigit(string digit){
     for (int i = 0; i < digit.length(); i++)
@@ -39,40 +39,53 @@ void autoFill(Students stud[]){
     Students tempStruct;
     float *grades;
     srand(time(NULL));
-    float mark;
+    float mark, egzaminas;
+    string cont;
     float tempVid=0;
     for (int i = 0; i < studCount; i++)
     {
-        for (int j = 0; j < wantedMarks; j++)
+        int j = 0;
+        while(true)
         {        
-            
             mark = rand() %10+1;
             tempVid+= mark;
         float * tempArray = grades;
         grades = (float*) malloc (j+1);
         std::copy(tempArray,tempArray+j,grades);
         grades[j] =mark;
+        j++;
+        //cout<<j;
+            cout<<mark<<endl<<"Ar norite generuot daugiau pazimiu?[Y/N]";
+            cin>>cont;
+            if(cont == "N"||cont == "n")
+            break;
         }
-    for (int a = 0; a < wantedMarks; a++)
+        cout<<"Egzamino pazymis: ";
+        egzaminas = rand()%10+1;
+        cout<<egzaminas<<endl;
+    for (int a = 0; a < j; a++)
     {
-          if(a%2==0&&a==wantedMarks/2)
+          if(a%2==0&&a==j/2)
                 tempStruct.med = (grades[a]+grades[a+1])/2;
 
-        else if(a==wantedMarks/2&&a%2==1)
+        else if(a==j/2&&a%2==1)
                 tempStruct.med = grades[a];  
     }
-        tempStruct.vid = tempVid/wantedMarks;
+        tempStruct.vid = tempVid/j;
         tempStruct.names = "name"+std::to_string(i);
         tempStruct.lastNames = "lastName"+std::to_string(i);
+        tempStruct.egzaminas = egzaminas;
         tempVid=0;
         stud[i] = tempStruct;
         tempStruct.med = 0;
+        free(grades);
     }
     
 }
 void handFill(Students stud[]){
     Students tempStruct;
     float sum = 0,*grades;
+    string egzaminas;
     int j =0;
     string cont="y", temp;
     for (int i = 0; i < studCount; i++)
@@ -124,6 +137,14 @@ void handFill(Students stud[]){
     tempStruct.vid = sum/floatTemp;
     sum = 0;
     j=0;
+    cout<<"iveskite studento egzamino pazymi: ";
+    cin>>egzaminas;
+    while(!checkForDigit(egzaminas))
+    {
+         cout<<"prasome ivesti pazimi! ";
+         cin>>egzaminas;  
+    }
+    tempStruct.egzaminas = stof(egzaminas);
     stud[i] = tempStruct;
     }
     
@@ -145,8 +166,6 @@ if(fill=="Y"||fill=="y"){
 
     }
     else if (fill=="N"||fill=="n"){    
-    cout<<"ivestkite pazimiu kieki: ";
-    cin>>wantedMarks;
     cout<<"ar norite skaicuoti pagal vidurki ar mediana?[V/M]: ";
     cin>>type;
     while(true)
@@ -169,20 +188,34 @@ if(fill=="Y"||fill=="y"){
 }
 
 void printTable(Students stud[]){
-    cout<<"Vardas"<<setw(5)<<' ';
-    cout<<"Pavarde"<<setw(5)<<' ';
+    std::cout << std::left << std::setfill(' ')
+              << std::setw(12) << "vardas"
+              << std::setw(12) << "pavarde";
     if(type=='v'||type=='V')
-    cout<<"Galutinis (Vid.)";
-    else
-    cout<<"Galutinis (Med.)";
+    std::cout << std::left << std::setfill(' ')<< std::setw(12)<<"Galutinis (Vid.)";
+    else    
+    std::cout << std::left << std::setfill(' ')<< std::setw(12)<<"Galutinis (Med.)";
+
     cout<<endl;
     cout<<"----------------------------------------------------"<<endl;
     for (int i = 0; i < studCount; i++)
     {
-        if(type=='v'||type=='V')
-        cout<<stud[i].names<<setw(5)<<' '<<stud[i].lastNames<<setw(5)<<' '<<std::setprecision(2)<<stud[i].vid<<endl;
-        else
-        cout<<stud[i].names<<setw(5)<<' '<<stud[i].lastNames<<setw(5)<<' '<<std::setprecision(2)<<stud[i].med<<endl;
+        float rez;
+        if(type=='v'||type=='V'){
+        rez = stud[i].vid*0.4+stud[i].egzaminas*0.6;
+        std::cout << std::left << std::setfill(' ')
+              << std::setw(12) << stud[i].names
+              << std::setw(12) << stud[i].lastNames
+              << std::setw(12) << std::setprecision(2)<<rez;
+
+        }
+        else{
+        rez = stud[i].med*0.4+stud[i].egzaminas*0.6;
+        std::cout << std::left << std::setfill(' ')
+              << std::setw(12) << stud[i].names
+              << std::setw(12) << stud[i].lastNames
+              << std::setw(12) << std::setprecision(2)<<rez;
+        }
     }
 }
 
