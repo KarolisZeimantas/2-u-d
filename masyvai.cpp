@@ -9,12 +9,15 @@
 #include <cstdlib>
 #include <iomanip>
 #include <stdlib.h>
+#include<bits/stdc++.h> 
+#include <algorithm>
 using std::cout;
 using std::cin;
 using std::string;
 using std::endl;
 using std::setw;
 using std::move;
+using std::fixed;
 int studCount;
 string fill;
 int wantedMarks = 0;
@@ -54,10 +57,11 @@ void autoFill(Students stud[]){
         std::copy(tempArray,tempArray+j,grades);
         grades[j] =mark;
         j++;
-        //cout<<j;
             cout<<mark<<endl<<"Ar norite generuot daugiau pazimiu?[Y/N]";
             cin>>cont;
-            while(cont!="Y" ||cont != "y"||cont != "N"||cont != "n"){
+            while(true){
+                if(cont=="Y" ||cont == "y"||cont == "N"||cont == "n")
+                    break;
                     cout<<"iveskite prasoma simboli! ";
                     cin>>cont;
             }
@@ -67,14 +71,29 @@ void autoFill(Students stud[]){
         cout<<"Egzamino pazymis: ";
         egzaminas = rand()%10+1;
         cout<<egzaminas<<endl;
+
+        for (int i = 0; i < j; i++)
+        {
+            for (int z = 0; z < i; z++)
+            {
+                if(*(grades + i)<*(grades+z)){
+                    int temp = *(grades+i);
+                    *(grades+i)= *(grades+z);
+                    *(grades+z) = temp;
+                }
+            }
+            
+        }
+        
     for (int a = 0; a < j; a++)
     {
-          if(a%2==0&&a==j/2)
+          if(a%2==0&&a==j/2||a==0)
                 tempStruct.med = (grades[a]+grades[a+1])/2;
 
         else if(a==j/2&&a%2==1)
                 tempStruct.med = grades[a];  
     }
+    
         tempStruct.vid = tempVid/j;
         tempStruct.names = "name"+std::to_string(i);
         tempStruct.lastNames = "lastName"+std::to_string(i);
@@ -82,7 +101,6 @@ void autoFill(Students stud[]){
         tempVid=0;
         stud[i] = tempStruct;
         tempStruct.med = 0;
-        free(grades);
     }
     
 }
@@ -127,30 +145,29 @@ void handFill(Students stud[]){
         }          
         
     }
-    
     for (int a = 0; a < j; a++)
     {
-          if(a%2==0&&a==j/2)
+        
+        if(a==j/2&&a%2==1||a==0)
+                tempStruct.med = grades[a]; 
+        else if(a%2==0&&a==j/2)
                 tempStruct.med = (grades[a]+grades[a+1])/2;
-
-        else if(a==j/2&&a%2==1)
-                tempStruct.med = grades[a];  
-    }
-    free(grades);
+    } 
     float floatTemp = j;
     tempStruct.vid = sum/floatTemp;
     sum = 0;
     j=0;
     cout<<"iveskite studento egzamino pazymi: ";
     cin>>egzaminas;
+
     while(!checkForDigit(egzaminas))
     {
          cout<<"prasome ivesti pazimi! ";
          cin>>egzaminas;  
     }
     tempStruct.egzaminas = stof(egzaminas);
-    stud[i] = tempStruct;
-    }
+        stud[i] = tempStruct;   
+         }
     
 }
 void fillFunc(Students stud[]){
@@ -210,7 +227,7 @@ void printTable(Students stud[]){
         std::cout << std::left << std::setfill(' ')
               << std::setw(12) << stud[i].names
               << std::setw(12) << stud[i].lastNames
-              << std::setw(12) << std::setprecision(2)<<rez;
+              << std::setw(12) << std::setprecision(1)<<rez;
 
         }
         else{
@@ -218,7 +235,7 @@ void printTable(Students stud[]){
         std::cout << std::left << std::setfill(' ')
               << std::setw(12) << stud[i].names
               << std::setw(12) << stud[i].lastNames
-              << std::setw(12) << std::setprecision(2)<<rez;
+              << std::setw(12) << std::setprecision(1)<<rez;
         }
         cout<<endl;
     }
@@ -237,8 +254,7 @@ int main(){
 
     cout<<"ar norite ivesti duomenis ranka?[Y/N]: ";
     cin>>fill;
-    Students stud[studCount];
-        
+    Students stud[studCount]; 
     fillFunc(stud);
     printTable(stud);
 }

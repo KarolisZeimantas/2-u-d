@@ -11,6 +11,7 @@
 #include <vector>
 #include <stdlib.h>
 #include<bits/stdc++.h> 
+#include <algorithm>
 using std::cout;
 using std::cin;
 using std::string;
@@ -73,9 +74,23 @@ void autoFill(vector<Students> &stud){
         cout<<"Egzamino pazymis: ";
         egzaminas = rand()%10+1;
         cout<<egzaminas<<endl;
+
+        for (int i = 0; i < j; i++)
+        {
+            for (int z = 0; z < i; z++)
+            {
+                if(*(grades + i)<*(grades+z)){
+                    int temp = *(grades+i);
+                    *(grades+i)= *(grades+z);
+                    *(grades+z) = temp;
+                }
+            }
+            
+        }
+        
     for (int a = 0; a < j; a++)
     {
-          if(a%2==0&&a==j/2)
+          if(a%2==0&&a==j/2||a==0)
                 tempStruct.med = (grades[a]+grades[a+1])/2;
 
         else if(a==j/2&&a%2==1)
@@ -132,10 +147,9 @@ void handFill( vector<Students> &stud){
         }          
         
     }
-    
     for (int a = 0; a < j; a++)
     {
-          if(a%2==0&&a==j/2)
+          if(a%2==0&&a==j/2||a==0)
                 tempStruct.med = (grades[a]+grades[a+1])/2;
 
         else if(a==j/2&&a%2==1)
