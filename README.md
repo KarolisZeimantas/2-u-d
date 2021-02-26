@@ -6,6 +6,6 @@ Naudojimas: paleisti .exe failus arba sukompiluoti .cpp failus ir paleisti gautu
 1) ivesti studentu kiekį
 2) pasirinkti ar duomenis įvesti ranka arba automoatiškai sugeneruoti
 3) pasirinkti ar skaičiuoti pagal vidurkį arbą mediną
-4) pasirinkus ivesti ranka reikės ivesti studento vardą pavardę ir jo pažymius po vieną, programa paklaus po kiekvieno paž ar norite tęsti
-5) pasirinkus automatiškai paprašys įvesti pažymių kiekį ir tada paklaus ar skaičiuoti medianą ar vidurkį
+4) pasirinkus ivesti ranka reikės ivesti studento vardą pavardę ir jo pažymius po vieną, programa paklaus po kiekvieno paž ar norite tęsti, pabaigus paprašys įvesti egzamino pažymį 
+5) pasirinkus automatiškai programa po vieną genruos skaičius ir paklaus ar norite tęsti, pabaigus generuoti pažymius sugeneruos egzamino pažymį
 6) abudu būdai atspauzdins tokią pačia lentelę
