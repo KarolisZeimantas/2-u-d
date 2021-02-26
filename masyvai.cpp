@@ -57,6 +57,10 @@ void autoFill(Students stud[]){
         //cout<<j;
             cout<<mark<<endl<<"Ar norite generuot daugiau pazimiu?[Y/N]";
             cin>>cont;
+            while(cont!="Y" ||cont != "y"||cont != "N"||cont != "n"){
+                    cout<<"iveskite prasoma simboli! ";
+                    cin>>cont;
+            }
             if(cont == "N"||cont == "n")
             break;
         }
@@ -216,6 +220,7 @@ void printTable(Students stud[]){
               << std::setw(12) << stud[i].lastNames
               << std::setw(12) << std::setprecision(2)<<rez;
         }
+        cout<<endl;
     }
 }
 

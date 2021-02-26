@@ -61,6 +61,12 @@ void autoFill(vector<Students> &stud){
         //cout<<j;
             cout<<mark<<endl<<"Ar norite generuot daugiau pazimiu?[Y/N]";
             cin>>cont;
+            while(true){
+                if(cont=="Y" ||cont == "y"||cont == "N"||cont == "n")
+                    break;
+                    cout<<"iveskite prasoma simboli! ";
+                    cin>>cont;
+            }
             if(cont == "N"||cont == "n")
             break;
         }
@@ -82,7 +88,6 @@ void autoFill(vector<Students> &stud){
         tempVid=0;
         stud.push_back(tempStruct);
         tempStruct.med = 0;
-        free(grades);
     }
     
 }
@@ -136,7 +141,6 @@ void handFill( vector<Students> &stud){
         else if(a==j/2&&a%2==1)
                 tempStruct.med = grades[a];  
     }
-    free(grades);
     float floatTemp = j;
     tempStruct.vid = sum/floatTemp;
     sum = 0;
@@ -210,7 +214,7 @@ void printTable( vector<Students> &stud){
         std::cout << std::left << std::setfill(' ')
               << std::setw(12) << stud[i].names
               << std::setw(12) << stud[i].lastNames
-              << std::setw(12) << std::setprecision(2)<<rez;
+              << std::setw(12) << std::setprecision(1)<<rez;
 
         }
         else{
@@ -218,8 +222,9 @@ void printTable( vector<Students> &stud){
         std::cout << std::left << std::setfill(' ')
               << std::setw(12) << stud[i].names
               << std::setw(12) << stud[i].lastNames
-              << std::setw(12) << std::setprecision(2)<<rez;
+              << std::setw(12) << std::setprecision(1)<<rez;
         }
+        cout<<endl;
     }
 }
 
