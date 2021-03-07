@@ -87,10 +87,10 @@ void autoFill(Students stud[]){
         
     for (int a = 0; a < j; a++)
     {
-          if(a%2==0&&a==j/2||a==0)
+          if(a%2==0&&a==j/2)
                 tempStruct.med = (grades[a]+grades[a+1])/2;
 
-        else if(a==j/2&&a%2==1)
+        else if(a==j/2&&a%2==1||a==0)
                 tempStruct.med = grades[a];  
     }
     

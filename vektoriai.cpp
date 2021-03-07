@@ -7,11 +7,13 @@
 #include <iostream>
 #include <ctime>
 #include <cstdlib>
+#include <fstream>
 #include <iomanip>
+#include <string> 
 #include <vector>
 #include <stdlib.h>
-#include<bits/stdc++.h> 
 #include <algorithm>
+#include <stdint.h>
 using std::cout;
 using std::cin;
 using std::string;
@@ -32,6 +34,7 @@ struct Students
     float med=0;
     float egzaminas;
 };
+
 bool checkForDigit(string digit){
     for (int i = 0; i < digit.length(); i++)
     {
@@ -39,6 +42,12 @@ bool checkForDigit(string digit){
         return false;
     }
     return true;
+}
+bool customer_sorter(Students const& lhs, Students const& rhs) {
+    if(lhs.names < rhs.names){
+        return true;
+    }
+    return false;
 }
 void autoFill(vector<Students> &stud){
     Students tempStruct;
@@ -90,10 +99,10 @@ void autoFill(vector<Students> &stud){
         
     for (int a = 0; a < j; a++)
     {
-          if(a%2==0&&a==j/2||a==0)
+          if(a%2==0&&a==j/2)
                 tempStruct.med = (grades[a]+grades[a+1])/2;
 
-        else if(a==j/2&&a%2==1)
+        else if(a==j/2&&a%2==1||a==0)
                 tempStruct.med = grades[a];  
     }
         tempStruct.vid = tempVid/j;
@@ -149,10 +158,10 @@ void handFill( vector<Students> &stud){
     }
     for (int a = 0; a < j; a++)
     {
-          if(a%2==0&&a==j/2||a==0)
+          if(a%2==0&&a==j/2)
                 tempStruct.med = (grades[a]+grades[a+1])/2;
 
-        else if(a==j/2&&a%2==1)
+        else if(a==j/2&&a%2==1||a==0)
                 tempStruct.med = grades[a];  
     }
     float floatTemp = j;
@@ -241,8 +250,99 @@ void printTable( vector<Students> &stud){
         cout<<endl;
     }
 }
+void scanFile(vector<Students> &stud){
+    string temp;
+    std::ifstream read;
+    float vid,med,i=0,tempVid=0,tempMed=0,studCount = 0;
+    vector<float> grades;
+    Students tempStruct;
+    cout<<"is kokio failo norite skaityti duomenis: 10000/100000/1000000[1/2/3]";
+    while(cin>>temp){
+        if(temp=="1"){
+            read.open("studentai10000.txt");
+            break;
+        }
+        else if(temp=="2"){
+            read.open("studentai100000.txt");
+            break;
+        }
+        else if(temp=="3"){
+           read.open("studentai1000000.txt");
+            break;
+        }
+        cout<<"prasome ivesti viena is 3 skaiciu!";
+    }
+    string firstLine;
+    std::getline(read,firstLine);
+    while(!read.eof()){
+    read>>temp;
+    tempStruct.names = temp;
+    read>>temp;
+    tempStruct.lastNames = temp;
+        while(!read.eof()){
+            read>>temp;
+            if(read.peek()=='\n'||read.peek() == read.eof()){
+                tempStruct.egzaminas = std::stoi(temp);
+                break;
+            }
+            i++;
+            tempVid += std::stoi(temp);
+            grades.push_back(std::stoi(temp)); 
+        }
+        std::sort(grades.begin(),grades.end());
+         tempStruct.vid =(tempVid/i)*0.4+tempStruct.egzaminas*0.6;
+         int tempCounter = i;
+        for (int a = 0; a < tempCounter; a++)
+        {
+          if(a%2==0&&a==tempCounter/2){
+                tempStruct.med = (grades[a]+grades[a+1])/2;
+          }
 
+        else if(a==tempCounter/2&&a%2==1||a==0){
+              //  cout<<grades[a]<<" ";
+                tempStruct.med = grades[a];  
+        }
+        }
+    //cout<<tempStruct.med<<" " <<tempStruct.vid<<endl;
+    stud.push_back(tempStruct);
+    tempStruct = {};
+    grades.clear();
+    tempVid = 0;
+    studCount++;
+    i=0;
+    }
+   for(int h=0;h<-1;h++)
+        for(int j=i+1;j<studCount;j++)
+            if(stud[j].names<stud[i].names)
+            std::swap(stud[h],stud[j]);
+    
+    std::cout << std::left << std::setfill(' ')
+              << std::setw(20) << "vardas"
+              << std::setw(20) << "pavarde";
+    std::cout << std::left << std::setfill(' ')<< std::setw(20)<<"Galutinis (Vid.)";
+    std::cout << std::left << std::setfill(' ')<< std::setw(20)<<"Galutinis (Med.)";
+    for (int j = 0; j < studCount; j++)
+    {
+        std::cout << std::left << std::setfill(' ')
+              << std::setw(20) << stud[j].names
+              << std::setw(20) << stud[j].lastNames
+              << std::setw(20) << std::setprecision(2)<<stud[j].vid
+              << std::setw(20) << std::setprecision(1)<<stud[j].med<<endl;
+        
+    }
+}
 int main(){
+    vector<Students> stud;     
+    string failas;
+    cout<<"ar norite duomenis skaityti is failo?[Y/N]";
+    while(cin>>failas){
+        if(failas=="y"||failas=="Y"||failas=="n"||failas=="N") break;
+        cout<<"iveskite prasoma simboli! ";
+    }
+    if(failas=="y"||failas=="Y"){
+        scanFile(stud);
+        return 0;
+    }
     string temp;
     
     cout<<"iveskite studentu kieki: ";
@@ -254,8 +354,7 @@ int main(){
     studCount =std::stof(temp);
 
     cout<<"ar norite ivesti duomenis ranka?[Y/N]: ";
-    cin>>fill;
-    vector<Students> stud;        
+    cin>>fill;   
     fillFunc(stud);
     printTable(stud);
 }
