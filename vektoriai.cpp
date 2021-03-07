@@ -4,36 +4,14 @@
 //    pagrinde su mediana bet suzinojes apie malloc viskas buvo gerai      //
 //    tikiuosi daug klaidu nepalikau                                       //
 /////////////////////////////////////////////////////////////////////////////
-#include <iostream>
-#include <ctime>
-#include <cstdlib>
-#include <fstream>
-#include <iomanip>
-#include <string> 
-#include <vector>
-#include <stdlib.h>
-#include <algorithm>
-#include <stdint.h>
-using std::cout;
-using std::cin;
-using std::string;
-using std::endl;
-using std::setw;
-using std::move;
-using std::vector;
-using std::fixed;
+#include"structures.h"
+#include"usings.h"
+
 int studCount;
 string fill;
 int wantedMarks = 0;
 char type;
-struct Students
-{
-    string names;
-    string lastNames;
-    float vid;
-    float med=0;
-    float egzaminas;
-};
+
 
 bool checkForDigit(string digit){
     for (int i = 0; i < digit.length(); i++)
@@ -257,21 +235,49 @@ void scanFile(vector<Students> &stud){
     vector<float> grades;
     Students tempStruct;
     cout<<"is kokio failo norite skaityti duomenis: 10000/100000/1000000[1/2/3]";
+    
     while(cin>>temp){
         if(temp=="1"){
-            read.open("studentai10000.txt");
+            try
+            {
+               read.open("studentai10000.txt");
+               if(!read) throw "failas neatydarytas!";
             break;
+            }
+            catch(const std::ifstream::failure e)
+            {
+                std::cerr << "failas neatydarytas!" << '\n';
+            }
         }
         else if(temp=="2"){
-            read.open("studentai100000.txt");
+            try
+            {
+               read.open("studentai100000.txt");
+               if(!read) throw "failas neatydarytas!";
             break;
+            }
+            catch(const std::ifstream::failure e)
+            {
+                std::cerr << "failas neatydarytas!" << '\n';
+            }
         }
         else if(temp=="3"){
-           read.open("studentai1000000.txt");
+           try
+            {
+               read.open("studentai1000000.txt");
+               if(!read) throw "failas neatydarytas!";
             break;
+            }
+            catch(const std::ifstream::failure e)
+            {
+                std::cerr << "failas neatydarytas!" << '\n';
+            }
         }
         cout<<"prasome ivesti viena is 3 skaiciu!";
     }
+  
+    
+  
     string firstLine;
     std::getline(read,firstLine);
     while(!read.eof()){
@@ -330,6 +336,7 @@ void scanFile(vector<Students> &stud){
               << std::setw(20) << std::setprecision(1)<<stud[j].med<<endl;
         
     }
+    read.close();
 }
 int main(){
     vector<Students> stud;     
