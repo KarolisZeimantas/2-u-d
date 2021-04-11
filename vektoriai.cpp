@@ -1,8 +1,5 @@
 /////////////////////////////////////////////////////////////////////////////
 //                     Darba atliko: Karolis Zeimantas                     //
-//    stengiausia padaryti tvarkingai bet iskilo visai daug problemu       //
-//    pagrinde su mediana bet suzinojes apie malloc viskas buvo gerai      //
-//    tikiuosi daug klaidu nepalikau                                       //
 /////////////////////////////////////////////////////////////////////////////
 #include"usings.h"
 int studCount;
@@ -10,6 +7,10 @@ int wantedMarks = 0;
 std::string fill;
 char type;
 int main(){
+
+    createFile();
+    exit(1);
+    cout<<"a";
     vector<Students> stud;     
     string failas;
     cout<<"ar norite duomenis skaityti is failo?[Y/N]";
