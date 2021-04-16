@@ -12,6 +12,22 @@ struct Students
     float vid;
     float med=0;
     float egzaminas;
+
+    // Students(std::string name,std::string lastNames,float vid,float med, float egzaminas )
+    //     :names(names), lastNames(lastNames), vid(vid), med(med),egzaminas(egzaminas){}
+    
+    // Students(const Students& students)
+    //         :names(students.names), lastNames(students.lastNames), vid(students.vid), med(students.med),egzaminas(students.egzaminas){}
 };
+
+// struct Students
+// {
+//     std::string names;
+//     std::string lastNames;
+//     float vid;
+//     float med=0;
+//     float egzaminas;
+
+// };
 
 #endif /* GRANDPARENT_H1 */

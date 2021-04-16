@@ -9,6 +9,13 @@ bool checkForDigit(string digit)
     }
     return true;
 }
+double round2(double vid){
+    float temp = (int)(vid * 100 +.5);
+    return (float)temp/100;
+}
+bool sortList(Students const &a, Students const &b) {
+    return a.vid<b.vid;
+}
 bool sorter(Students const &lhs, Students const &rhs)
 {
     if (lhs.vid < rhs.vid)
@@ -233,7 +240,7 @@ void createFile()
     string temp, firstLine;
     Students tempStructl;
     std::vector<Students> varg, kiet, tempStud;
-    long long x = 100;
+    long long x = 1000;
     srand(time(NULL));
     string tempSS;
     for (int i = 0; i < 5; i++)
@@ -259,12 +266,14 @@ void createFile()
         fout.close();
         steady_clock::time_point t2 = steady_clock::now();
         duration<double> time_span = duration_cast<duration<double>>(t2 - t1);
-        cout <<x <<" failo sukurimas uztruko: " << time_span.count() << " sekundziu" << endl;
+        //cout <<x <<" failo sukurimas uztruko: " << time_span.count() << " sekundziu" << endl;
 
         std::ifstream read("failas" + std::to_string(x) + ".txt");
         t1 = steady_clock::now();
         std::getline(read, firstLine);
         int counter = 0;
+        if (x==10000000)
+        tempStud.reserve(10000000);
         while (!read.eof())
         {
             std::getline(read, tempSS);
@@ -283,7 +292,7 @@ void createFile()
             }
             int egzas;
             ss >> egzas;
-            std::sort(grades.begin(), grades.end());
+           // std::sort(grades.begin(), grades.end());
             for (int a = 0; a < grades.size(); a++)
             {
                 if (a % 2 == 0 && a == grades.size() / 2)
@@ -292,8 +301,17 @@ void createFile()
                     tempStructl.med = grades[a];
             }
             tempvid /= gradeNR;
-            tempStructl.vid = tempvid * 0.4 + egzas * 0.6;
+            tempStructl.vid = round2(tempvid * 0.4 + egzas * 0.6);
+            try
+            {
             tempStud.push_back(tempStructl);
+            }
+            catch(const std::exception& e)
+            {
+                cout<<tempStud.size()<<" ";
+                std::cout << e.what() << '\n';
+            }
+            
             grades.clear();
             gradeNR = 0;
             tempvid = 0;
@@ -306,39 +324,36 @@ void createFile()
         std::ofstream vargFailas("varg" + std::to_string(x) + ".txt");
         std::ofstream kietFailas("kiet" + std::to_string(x) + ".txt");
         t1 = steady_clock::now();
-        std::sort(tempStud.begin(), tempStud.end(), sorter);
+        //tempStud.sort(sorter);
+        sort(tempStud.begin(),tempStud.end(),sortList);
+        //std::sort(tempStud.begin(), tempStud.end(), sorter);
         t2 = steady_clock::now();
         time_span = duration_cast<duration<double>>(t2 - t1);
         cout << x <<" studentu rusiavimas uztruko: " << time_span.count() << " sekundziu" << endl;
         t1 = steady_clock::now();
-        for (int k = 0; k < tempStud.size(); k++)
+        for (Students k : tempStud)
         {
 
-            if (tempStud[k].vid >= 5)
+            if(k.vid >= 5)
             {
-                kiet.push_back(tempStud[k]);
-                int size = kiet.size()-1;
                 kietFailas << std::left << std::setfill(' ')
-                           << std::setw(14) << kiet[size].names
-                           << std::setw(14) << kiet[size].lastNames
-                           << std::setw(14) << kiet[size].vid
-                           << std::setw(14) << kiet[size].med << endl;
+                           << std::setw(14) <<k.names
+                           << std::setw(14) <<k.lastNames
+                           << std::setw(14) <<k.vid
+                           << std::setw(14) <<k.med << endl;
             }
             else
             {
-                varg.push_back(tempStud[k]);
-                int size = varg.size()-1;
-                
                 vargFailas << std::left << std::setfill(' ')
-                           << std::setw(14) << varg[size].names
-                           << std::setw(14) << varg[size].lastNames
-                           << std::setw(14) << varg[size].vid
-                           << std::setw(14) << varg[size].med << endl;
+                           << std::setw(14) <<k.names
+                           << std::setw(14) <<k.lastNames
+                           << std::setw(14) <<k.vid
+                           << std::setw(14) <<k.med << endl;
             }
         }
         t2 = steady_clock::now();
         time_span = duration_cast<duration<double>>(t2 - t1);
-        cout << "studentu skirstymas i failus uztruko: " << time_span.count() << " sekundziu" << endl;
+        //cout << "studentu skirstymas i failus uztruko: " << time_span.count() << " sekundziu" << endl;
         vargFailas.close();
         kietFailas.close();
         read.close();

@@ -11,9 +11,11 @@
 #include <stdlib.h>
 #include <algorithm>
 #include <stdint.h>
-#include<stdlib.h>
 #include <chrono>
 #include"structures.h"
+#include <list>
+#include<deque>
+
 #include <ctype.h>
 
 using std::cout;
