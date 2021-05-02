@@ -57,40 +57,40 @@ Vector laikai:
 10000000 failo skaitymas užtruko: 52.7618 sekundžių
 10000000 studentų rušiavimas užtruko: 7.79611 sekundžių
 ###### 2.6
-  buvo implemetuoti optimizuoti metodai visiem trim kontenriam, vietoj dalyjimo į 2 skirtingus vargšų ir kietų konteinerius buvo ištrinami duomenys iš orginalaus konteinerio ir ištrinti duomenys perkelti į naują konteinerį. Taip pat buvo naudojami visokie optimizavimo algoritmai, taičiau deque nepavyko padaryti greitesnio negu orginalaus skirstymo į 2 konteinerius būdo. Gauti rezultatai:
+  buvo implemetuoti optimizuoti metodai visiem trim kontenriam, vietoj dalyjimo į 2 skirtingus vargšų ir kietų konteinerius buvo ištrinami duomenys iš orginalaus konteinerio ir ištrinti duomenys perkelti į naują konteinerį. Taip pat buvo naudojami visokie optimizavimo algoritmai, taičiau deque nepavyko padaryti greitesnio negu orginalaus skirstymo į 2 konteinerius būdo, taičiau perėjus prie clang kompiliatoriaus ir C++ 17 norint sukurti direktorijas laikyti sukurtus .txt failus deque optimizuotas tapo greitesnis. Gauti rezultatai:
   
 =============Vector=============
 
-100 Neoptimizuotas: 0.000028s Optimizuotas: 0.000006s 
+100 Neoptimizuotas: 0.000057s Optimizuotas: 0.000018s
 
-1000 Neoptimizuotas: 0.000332s Optimizuotas: 0.000062s 
+1000 Neoptimizuotas: 0.000670s Optimizuotas: 0.000169s 
 
-10000 Neoptimizuotas: 0.001827s Optimizuotas: 0.000502s 
+10000 Neoptimizuotas: 0.004921s Optimizuotas: 0.001501s 
 
-100000 Neoptimizuotas: 0.019267s Optimizuotas: 0.005002s 
+100000 Neoptimizuotas: 0.042159s Optimizuotas: 0.012017s 
 
-1000000 Neoptimizuotas: 0.184124s Optimizuotas: 0.050846s 
+1000000 Neoptimizuotas: 0.441261s Optimizuotas: 0.122616s 
 
 =============List=============
 
-100 Neoptimizuotas: 0.000025s 100 Optimizuotas: 0.000034s
+100 Neoptimizuotas: 0.000041s 100 Optimizuotas: 0.000038s
 
-1000 Neoptimizuotas: 0.000230s 1000 Optimizuotas: 0.000329s
+1000 Neoptimizuotas: 0.000354s 1000 Optimizuotas: 0.000236s
 
-10000 Neoptimizuotas: 0.002501s 10000 Optimizuotas: 0.001833s
+10000 Neoptimizuotas: 0.003864s 10000 Optimizuotas: 0.002542s
 
-100000 Neoptimizuotas: 0.024582s 100000 Optimizuotas: 0.018813s
+100000 Neoptimizuotas: 0.038785s 100000 Optimizuotas: 0.025843s
 
-1000000 Neoptimizuotas: 0.251622s 1000000 Optimizuotas: 0.179687s
+1000000 Neoptimizuotas: 0.383349s 1000000 Optimizuotas: 0.258878s
 
 =============Deque=============
 
-100 Neoptimizuotas: 0.000014s Optimizuotas: 0.000023s
+100 Neoptimizuotas: 0.000050s Optimizuotas: 0.000034s
 
-1000 Neoptimizuotas: 0.000207s Optimizuotas: 0.000129s
+1000 Neoptimizuotas: 0.000453s Optimizuotas: 0.000199s
 
-10000 Neoptimizuotas: 0.001291s Optimizuotas: 0.001532s
+10000 Neoptimizuotas: 0.004666s Optimizuotas: 0.002671s
 
-100000 Neoptimizuotas: 0.017840s Optimizuotas: 0.017593s
+100000 Neoptimizuotas: 0.046615s Optimizuotas: 0.024293s
 
-1000000 Neoptimizuotas: 0.134575s Optimizuotas: 0.154991s
+1000000 Neoptimizuotas: 0.474622s Optimizuotas: 0.239480s
