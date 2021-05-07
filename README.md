@@ -9,88 +9,55 @@
 ###### 2.5 
 yra skirta patikrinti duomenu išsaugojimo spartumo būdus naudojant vector, list bei deque. Vectorius buvo greičiausias.
 
-List laikai:
-1000 failo skaitymas užtruko: 0.0062024 sekundžių    
-1000 studentų rušiavimas užtruko: 0.0004345 sekundžių
 
-10000 failo skaitymas užtruko: 0.0543333 sekundžių    
-10000 studentų rušiavimas užtruko: 0.0060865 sekundžių
+| list laikai | |
+| --- | --- |
+| 1000 failo skaitymas: 0.0062024s | studentų rušiavimas: 0.0004345s |
+| 10000 failo skaitymas: 0.0543333s  | studentų rušiavimas: 0.0060865s |
+| 100000 failo skaitymas: 0.546861s | studentų rušiavimas užtruko: 0.0749402s |
+| 1000000 failo skaitymas: 5.29329s | studentų rušiavimas užtruko: 1.00853s |
+| 10000000 failo skaitymas: 54.4872s | studentų rušiavimas: 15.1819s |
 
-100000 failo skaitymas užtruko: 0.546861 sekundžių
-100000 studentų rušiavimas užtruko: 0.0749402 sekundžių
+| Deque laikai | |
+| --- | --- |
+| 1000 failo skaitymas: 0.006104s | studentų rušiavimas: 0.0004461s |
+| 10000 failo skaitymas: 0.0534222s | studentų rušiavimas: 0.0058478s |
+| 100000 failo skaitymas užtruko: 0.530247s | studentų rušiavimas: 0.0704389s |
+| 1000000 failo skaitymas užtruko: 5.3066s | studentų rušiavimas: 0.889723s |
+| 10000000 failo skaitymas užtruko: 53.2172s| studentų rušiavimas: 10.9039s |
 
-1000000 failo skaitymas užtruko: 5.29329 sekundžių
-1000000 studentų rušiavimas užtruko: 1.00853 sekundžių
+| Vector laikai | |
+| --- | --- |
+| 1000 failo skaitymas: 0.006228s | studentų rušiavimas: 0.0003433s |
+| 10000 failo skaitymas: 0.0541851s | studentų rušiavimas: 0.0039269s |
+| 100000 failo skaitymas: 0.539999s | studentų rušiavimas: 0.0520185s |
+| 1000000 failo skaitymas: 5.29033s | studentų rušiavimas: 0.634036s |
+| 10000000 failo skaitymas: 52.7618s | studentų rušiavimas: 7.79611s |
 
-10000000 failo skaitymas užtruko: 54.4872 sekundžių
-10000000 studentų rušiavimas užtruko: 15.1819 sekundžių
-
-Deque laikai: 
-1000 failo skaitymas užtruko: 0.006104 sekundžių     
-1000 studentų rušiavimas užtruko: 0.0004461 sekundžių
-
-10000 failo skaitymas užtruko: 0.0534222 sekundžių    
-10000 studentų rušiavimas užtruko: 0.0058478 sekundžių
-
-100000 failo skaitymas užtruko: 0.530247 sekundžių
-100000 studentų rušiavimas užtruko: 0.0704389 sekundžių
-
-1000000 failo skaitymas užtruko: 5.3066 sekundžių
-1000000 studentų rušiavimas užtruko: 0.889723 sekundžių
-
-10000000 failo skaitymas užtruko: 53.2172 sekundžių
-10000000 studentų rušiavimas užtruko: 10.9039 sekundžių
-
-Vector laikai: 
-1000 failo skaitymas užtruko: 0.006228 sekundžių
-1000 studentų rušiavimas užtruko: 0.0003433 sekundžių
-
-10000 failo skaitymas užtruko: 0.0541851 sekundžių
-10000 studentų rušiavimas užtruko: 0.0039269 sekundžių
-
-100000 failo skaitymas užtruko: 0.539999 sekundžių
-100000 studentų rušiavimas užtruko: 0.0520185 sekundžių
-
-1000000 failo skaitymas užtruko: 5.29033 sekundžių
-1000000 studentų rušiavimas užtruko: 0.634036 sekundžių
-
-10000000 failo skaitymas užtruko: 52.7618 sekundžių
-10000000 studentų rušiavimas užtruko: 7.79611 sekundžių
 ###### 2.6
   buvo implemetuoti optimizuoti metodai visiem trim kontenriam, vietoj dalyjimo į 2 skirtingus vargšų ir kietų konteinerius buvo ištrinami duomenys iš orginalaus konteinerio ir ištrinti duomenys perkelti į naują konteinerį. Taip pat buvo naudojami visokie optimizavimo algoritmai, taičiau deque nepavyko padaryti greitesnio negu orginalaus skirstymo į 2 konteinerius būdo, taičiau perėjus prie clang kompiliatoriaus ir C++ 17 norint sukurti direktorijas laikyti sukurtus .txt failus deque optimizuotas tapo greitesnis. Gauti rezultatai:
   
-=============Vector=============
+  
+| Vector laikai | |
+| --- | --- |
+| 1000 Neoptimizuotas: 0.000057s| Optimizuotas: 0.000018s |
+| 10000 Neoptimizuotas: 0.000670s | Optimizuotas: 0.000169s |
+| 100000 Neoptimizuotas: 0.004921s | Optimizuotas: 0.001501s |
+| 1000000 Neoptimizuotas:  0.042159s | Optimizuotas: 0.012017s |
+| 10000000 Neoptimizuotas: 0.441261s | Optimizuotas: 0.122616s |
 
-100 Neoptimizuotas: 0.000057s Optimizuotas: 0.000018s
+| List laikai | |
+| --- | --- |
+| 1000 Neoptimizuotas: 0.000041s | Optimizuotas: 0.000038s |
+| 10000 Neoptimizuotas: 0.000354s | Optimizuotas: 0.000236s |
+| 100000 Neoptimizuotas: 0.003864s | Optimizuotas: 0.002542s |
+| 1000000 Neoptimizuotas: 0.038785s | Optimizuotas: 0.025843s |
+| 10000000 Neoptimizuotas: 0.383349s | Optimizuotas: 0.258878s |
 
-1000 Neoptimizuotas: 0.000670s Optimizuotas: 0.000169s 
-
-10000 Neoptimizuotas: 0.004921s Optimizuotas: 0.001501s 
-
-100000 Neoptimizuotas: 0.042159s Optimizuotas: 0.012017s 
-
-1000000 Neoptimizuotas: 0.441261s Optimizuotas: 0.122616s 
-
-=============List=============
-
-100 Neoptimizuotas: 0.000041s 100 Optimizuotas: 0.000038s
-
-1000 Neoptimizuotas: 0.000354s 1000 Optimizuotas: 0.000236s
-
-10000 Neoptimizuotas: 0.003864s 10000 Optimizuotas: 0.002542s
-
-100000 Neoptimizuotas: 0.038785s 100000 Optimizuotas: 0.025843s
-
-1000000 Neoptimizuotas: 0.383349s 1000000 Optimizuotas: 0.258878s
-
-=============Deque=============
-
-100 Neoptimizuotas: 0.000050s Optimizuotas: 0.000034s
-
-1000 Neoptimizuotas: 0.000453s Optimizuotas: 0.000199s
-
-10000 Neoptimizuotas: 0.004666s Optimizuotas: 0.002671s
-
-100000 Neoptimizuotas: 0.046615s Optimizuotas: 0.024293s
-
-1000000 Neoptimizuotas: 0.474622s Optimizuotas: 0.239480s
+| Deque laikai | |
+| --- | --- |
+| 1000 Neoptimizuotas: 0.000050s | Optimizuotas: 0.000034s |
+| 10000 Neoptimizuotas: 0.000453s | Optimizuotas: 0.000199s |
+| 100000 Neoptimizuotas: 0.004666s | Optimizuotas: 0.002671s |
+| 1000000 Neoptimizuotas: 0.046615s | Optimizuotas: 0.024293s |
+| 10000000 Neoptimizuotas: 0.474622s | Optimizuotas: 0.239480s|
