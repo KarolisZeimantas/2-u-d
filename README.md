@@ -1,12 +1,32 @@
-###### 2.1
-  Sukurta programa kuri skaito iš įvestų duomenų CLI ir rušiuoja studentus pagal mediana arba vidurkį pasirinktinai. 
-###### 2.2 
-  Modifikuota 2.1 versija ir pridėtas pasirinkimas skaityti duomenis iš paruoštų duomenų.
-###### 2.3
-  įdėti keli try catch metodai skirti išvesti patikrinti ar failas iš kurio norima skaityti egzistuoja
-###### 2.4
-  nuskaityti duomenys yra rušiuojami į 2 failus pagal studentų vidurkį ir matuojamas jų laikas.
-###### 2.5 
+# 2.1
+  buvo implemetuoti optimizuoti metodai visiem trim kontenriam, vietoj dalyjimo į 2 skirtingus vargšų ir kietų konteinerius buvo ištrinami duomenys iš orginalaus konteinerio ir ištrinti duomenys perkelti į naują konteinerį. Taip pat buvo naudojami visokie optimizavimo algoritmai, taičiau deque nepavyko padaryti greitesnio negu orginalaus skirstymo į 2 konteinerius būdo, taičiau perėjus prie clang kompiliatoriaus ir C++ 17 norint sukurti direktorijas laikyti sukurtus .txt failus deque optimizuotas tapo greitesnis. Gauti rezultatai:
+  
+  
+| Vector laikai | |
+| --- | --- |
+| 1000 Neoptimizuotas: 0.000057s| Optimizuotas: 0.000018s |
+| 10000 Neoptimizuotas: 0.000670s | Optimizuotas: 0.000169s |
+| 100000 Neoptimizuotas: 0.004921s | Optimizuotas: 0.001501s |
+| 1000000 Neoptimizuotas:  0.042159s | Optimizuotas: 0.012017s |
+| 10000000 Neoptimizuotas: 0.441261s | Optimizuotas: 0.122616s |
+
+| List laikai | |
+| --- | --- |
+| 1000 Neoptimizuotas: 0.000041s | Optimizuotas: 0.000038s |
+| 10000 Neoptimizuotas: 0.000354s | Optimizuotas: 0.000236s |
+| 100000 Neoptimizuotas: 0.003864s | Optimizuotas: 0.002542s |
+| 1000000 Neoptimizuotas: 0.038785s | Optimizuotas: 0.025843s |
+| 10000000 Neoptimizuotas: 0.383349s | Optimizuotas: 0.258878s |
+
+| Deque laikai | |
+| --- | --- |
+| 1000 Neoptimizuotas: 0.000050s | Optimizuotas: 0.000034s |
+| 10000 Neoptimizuotas: 0.000453s | Optimizuotas: 0.000199s |
+| 100000 Neoptimizuotas: 0.004666s | Optimizuotas: 0.002671s |
+| 1000000 Neoptimizuotas: 0.046615s | Optimizuotas: 0.024293s |
+| 10000000 Neoptimizuotas: 0.474622s | Optimizuotas: 0.239480s|
+
+# 2.0.5 
 yra skirta patikrinti duomenu išsaugojimo spartumo būdus naudojant vector, list bei deque. Vectorius buvo greičiausias.
 
 
@@ -34,30 +54,15 @@ yra skirta patikrinti duomenu išsaugojimo spartumo būdus naudojant vector, lis
 | 1000000 failo skaitymas: 5.29033s | studentų rušiavimas: 0.634036s |
 | 10000000 failo skaitymas: 52.7618s | studentų rušiavimas: 7.79611s |
 
-###### 2.6
-  buvo implemetuoti optimizuoti metodai visiem trim kontenriam, vietoj dalyjimo į 2 skirtingus vargšų ir kietų konteinerius buvo ištrinami duomenys iš orginalaus konteinerio ir ištrinti duomenys perkelti į naują konteinerį. Taip pat buvo naudojami visokie optimizavimo algoritmai, taičiau deque nepavyko padaryti greitesnio negu orginalaus skirstymo į 2 konteinerius būdo, taičiau perėjus prie clang kompiliatoriaus ir C++ 17 norint sukurti direktorijas laikyti sukurtus .txt failus deque optimizuotas tapo greitesnis. Gauti rezultatai:
-  
-  
-| Vector laikai | |
-| --- | --- |
-| 1000 Neoptimizuotas: 0.000057s| Optimizuotas: 0.000018s |
-| 10000 Neoptimizuotas: 0.000670s | Optimizuotas: 0.000169s |
-| 100000 Neoptimizuotas: 0.004921s | Optimizuotas: 0.001501s |
-| 1000000 Neoptimizuotas:  0.042159s | Optimizuotas: 0.012017s |
-| 10000000 Neoptimizuotas: 0.441261s | Optimizuotas: 0.122616s |
+# 2.0.4
+  nuskaityti duomenys yra rušiuojami į 2 failus pagal studentų vidurkį ir matuojamas jų laikas.
 
-| List laikai | |
-| --- | --- |
-| 1000 Neoptimizuotas: 0.000041s | Optimizuotas: 0.000038s |
-| 10000 Neoptimizuotas: 0.000354s | Optimizuotas: 0.000236s |
-| 100000 Neoptimizuotas: 0.003864s | Optimizuotas: 0.002542s |
-| 1000000 Neoptimizuotas: 0.038785s | Optimizuotas: 0.025843s |
-| 10000000 Neoptimizuotas: 0.383349s | Optimizuotas: 0.258878s |
 
-| Deque laikai | |
-| --- | --- |
-| 1000 Neoptimizuotas: 0.000050s | Optimizuotas: 0.000034s |
-| 10000 Neoptimizuotas: 0.000453s | Optimizuotas: 0.000199s |
-| 100000 Neoptimizuotas: 0.004666s | Optimizuotas: 0.002671s |
-| 1000000 Neoptimizuotas: 0.046615s | Optimizuotas: 0.024293s |
-| 10000000 Neoptimizuotas: 0.474622s | Optimizuotas: 0.239480s|
+# 2.0.3
+  įdėti keli try catch metodai skirti išvesti patikrinti ar failas iš kurio norima skaityti egzistuoja
+
+# 2.0.2 
+  Modifikuota 2.1 versija ir pridėtas pasirinkimas skaityti duomenis iš paruoštų duomenų.
+  
+# 2.0.1
+  Sukurta programa kuri skaito iš įvestų duomenų CLI ir rušiuoja studentus pagal mediana arba vidurkį pasirinktinai. 
